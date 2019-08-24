@@ -33,13 +33,15 @@ void           print_statistics  (unsigned char*,unsigned char*,int,int,int,int,
 */
 
 int main() {
-  unsigned char * unsortedArray = NULL;
-  unsigned char * sortedArray = NULL;
   int mean, max, min;
   float median;
-  int numberOfItems = 0;
+  int numberOfItems ;
   char name;
-  printf("please enter the number of characters in the array:   ");
+  unsigned char * unsortedArray = NULL;
+  unsigned char * sortedArray = NULL;
+
+printf("please enter the number of characters in the array:   ");
+
   scanf("%d", & numberOfItems);
   unsortedArray = creatMemory(unsortedArray, numberOfItems);
   creatArray(unsortedArray, numberOfItems);
@@ -52,7 +54,7 @@ int main() {
   print_statistics(unsortedArray, sortedArray, numberOfItems, max, min, mean, median);
   system("pause");
   return 0;
-}
+ }
 
 // Memory Allocation Function.
 // used to allocate specific number of specific data type in the memory.
@@ -232,7 +234,7 @@ float find_median(unsigned char * array, int n) {
     unsigned char * arrayCopy = NULL;
     arrayCopy = creatMemory(arrayCopy, n);
     arrayCopy = copyArray(array, n, arrayCopy);
-    print_array(arrayCopy, n, "Copied\n");
+    print_array(arrayCopy, n, "Copied");
     printf("Calculating the Median Value...\n");
 
     float median = 0;
