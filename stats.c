@@ -1,7 +1,7 @@
 /*
  * @file <stat.c>
  * @brief
- * analyze an array of unsigned char data items and report analytics:
+ * analyze an array of int data items and report analytics:
  * _____________________________________________________
  * 1. the maximum.                                      |
  * 2. minimum.                                          |
@@ -20,16 +20,16 @@
 #include "stats.h"
 
 /*
-unsigned char* creatMemory (unsigned char*,int);
-int            creatArray  (unsigned char*,int);
-unsigned char* copyArray   (unsigned char* ,int,unsigned char*);
-unsigned char* sort_array   (unsigned char*,int,int);
-void           print_array  (unsigned char*,int,char*);
-int            find_maximum    (unsigned char*,int);
-int            find_minimum    (unsigned char*,int);
-int            find_mean   (unsigned char*,int);
-int            find_median (unsigned char*,int);
-void           print_statistics  (unsigned char*,unsigned char*,int,int,int,int,int);
+int* creatMemory (int*,int);
+int            creatArray  (int*,int);
+int* copyArray   (int* ,int,int*);
+int* sort_array   (int*,int,int);
+void           print_array  (int*,int,char*);
+int            find_maximum    (int*,int);
+int            find_minimum    (int*,int);
+int            find_mean   (int*,int);
+float          find_median (int*,int);
+void           print_statistics  (int*,int*,int,int,int,int,float);
 */
 
 int main() {
@@ -37,8 +37,8 @@ int main() {
   float median;
   int numberOfItems ;
   char name;
-  unsigned char * unsortedArray = NULL;
-  unsigned char * sortedArray = NULL;
+  int * unsortedArray = NULL;
+  int * sortedArray = NULL;
 
 printf("please enter the number of characters in the array:   ");
 
@@ -52,22 +52,22 @@ printf("please enter the number of characters in the array:   ");
   mean = find_mean(unsortedArray, numberOfItems);
   median = find_median(unsortedArray, numberOfItems);
   print_statistics(unsortedArray, sortedArray, numberOfItems, max, min, mean, median);
-  system("pause");
+  //system("pause");
   return 0;
  }
 
 // Memory Allocation Function.
 // used to allocate specific number of specific data type in the memory.
 /*-----------------------------------------------------------------------------*/
-unsigned char * creatMemory(unsigned char * array, int n) {
-  array = (unsigned char * ) malloc(n * sizeof(unsigned char));
+int * creatMemory(int * array, int n) {
+  array = (int * ) malloc(n * sizeof(int));
 
   //  Check if the memory has been successfully allocated or not.
   if (array == NULL) {
     printf("Memory not allocated.\n");
     return (0);
   } else {
-    printf("Allocating %d memory blocks of size %zu Byte.... .\n", n, n * (sizeof(unsigned char)));
+    printf("Allocating %d memory blocks of size %zu Byte.... .\n", n, n * (sizeof(int)));
     printf("Memory allocated successfully.\nStarted at Address : 0x%p.\n\n", array);
     return array;
   }
@@ -77,7 +77,7 @@ unsigned char * creatMemory(unsigned char * array, int n) {
 // Creat Array Function.
 // used to store the integers inside the array.
 /*-----------------------------------------------------------------------------*/
-int creatArray(unsigned char * array, int n) {
+int creatArray(int * array, int n) {
   //  Check if the array has been successfully allocated or not.
   if (array == NULL) {
     printf("Array Not Found.\n");
@@ -86,8 +86,8 @@ int creatArray(unsigned char * array, int n) {
     printf("please enter %d characters \"each followed by ENTER KEY\" : \n", n);
 
     for (int i = 0; i < n; i++) {
-      scanf(" %c", & array[i]);
-      array[i] = (array[i] - '0');
+      scanf("%d", & array[i]);
+      array[i] = (array[i]);
     }
     return (1);
   }
@@ -97,7 +97,7 @@ int creatArray(unsigned char * array, int n) {
 // copy Array Function.
 // used to copy array to new one.
 /*-----------------------------------------------------------------------------*/
-unsigned char * copyArray(unsigned char * array, int n, unsigned char * copiedArray) {
+int * copyArray(int * array, int n, int * copiedArray) {
   //  Check if the array has been successfully allocated or not.
   if (array == NULL) {
     printf("Array Not Found.\n");
@@ -116,7 +116,7 @@ unsigned char * copyArray(unsigned char * array, int n, unsigned char * copiedAr
 // Print Array Function.
 // used to Print the integers inside the array.
 /*-----------------------------------------------------------------------------*/
-void print_array(unsigned char * array, int n, char * name) {
+void print_array(int * array, int n, char * name) {
   //  Check if the array has been successfully allocated or not.
   if (array == NULL) {
     printf("Array Not Found.\n");
@@ -135,9 +135,9 @@ void print_array(unsigned char * array, int n, char * name) {
 // used to sort the integers inside the array.
 // type 1 for descending and type 2 for Ascending order.
 /*-----------------------------------------------------------------------------*/
-unsigned char * sort_array(unsigned char * array, int size, int type) {
+int * sort_array(int * array, int size, int type) {
   //  Check if the array has been successfully allocated or not.
-  unsigned char * sortedArray = array;
+  int * sortedArray = array;
   if (sortedArray == NULL) {
     printf("Array Not Found.\n");
   } else if (type == 1) {
@@ -148,7 +148,7 @@ unsigned char * sort_array(unsigned char * array, int size, int type) {
   // insertion sorting code.
   //assume that The first element in the array to be sorted.
   for (int step = 1; step < size; step++) {
-    unsigned char key = array[step]; //Take the second element and store it separately in key.
+    int key = array[step]; //Take the second element and store it separately in key.
     int j = step - 1;
     // For Ascending order, change key>array[j] to key<array[j].
     while (type == 1 ? key > array[j] && j >= 0 : key < array[j] && j >= 0) {
@@ -165,7 +165,7 @@ unsigned char * sort_array(unsigned char * array, int size, int type) {
 
 // Find Maximum value.
 /*-----------------------------------------------------------------------------*/
-int find_maximum(unsigned char * array, int n) {
+int find_maximum(int * array, int n) {
   //  Check if the array has been successfully allocated or not.
   if (array == NULL) {
     printf("Array Not Found.\n");
@@ -184,7 +184,7 @@ int find_maximum(unsigned char * array, int n) {
 
 // Find Minimum value.
 /*-----------------------------------------------------------------------------*/
-int find_minimum(unsigned char * array, int n) {
+int find_minimum(int * array, int n) {
   //  Check if the array has been successfully allocated or not.
   if (array == NULL) {
     printf("Array Not Found.\n");
@@ -202,7 +202,7 @@ int find_minimum(unsigned char * array, int n) {
 
 // Find Mean value.
 /*-----------------------------------------------------------------------------*/
-int find_mean(unsigned char * array, int n) {
+int find_mean(int * array, int n) {
   //  Check if the array has been successfully allocated or not.
   if (array == NULL) {
     printf("Array Not Found.\n");
@@ -224,14 +224,14 @@ int find_mean(unsigned char * array, int n) {
 // Find median value. (The "median" is the "middle" value in the list of numbers)
 // to find the median you need to sort the list first from small to big.
 /*-----------------------------------------------------------------------------*/
-float find_median(unsigned char * array, int n) {
+float find_median(int * array, int n) {
   //  Check if the array has been successfully allocated or not.
   if (array == NULL) {
     printf("Array Not Found.\n");
     return (0);
   } else {
     printf("Creating Array Copy ....\n");
-    unsigned char * arrayCopy = NULL;
+    int * arrayCopy = NULL;
     arrayCopy = creatMemory(arrayCopy, n);
     arrayCopy = copyArray(array, n, arrayCopy);
     print_array(arrayCopy, n, "Copied");
@@ -255,7 +255,7 @@ float find_median(unsigned char * array, int n) {
 
 // Print stats of the Array.
 /*-----------------------------------------------------------------------------*/
-void print_statistics(unsigned char * array, unsigned char * sorted, int n, int max, int min, int mean, float median) {
+void print_statistics(int * array, int * sorted, int n, int max, int min, int mean, float median) {
   //  Check if the array has been successfully allocated or not.
   if (array == NULL) {
     printf("Array Not Found.\n");
